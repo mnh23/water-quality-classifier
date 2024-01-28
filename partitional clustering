@@ -1,0 +1,42 @@
+ install.packages("tm")
+library(tm)
+install.packages("wordcloud")
+library(wordcloud)
+install.packages("RColorBrewer")
+library(RColorBrewer)
+ install.packages("topicmodels")
+library(topicmodels)
+setwd("D:/Test/data")
+name <- file.path("D:/Test/data")
+length(dir(name))
+q()
+wp <- read.csv("C:/Users/ASUS/Downloads/Data Mining/water_potability.csv")
+summary(wp)
+summary(wp)
+str(wp)
+wp <- na.omit(wp)
+str(wp)
+wp <- scale(wp)
+head(wp, n=3)
+install.packages("factoextra")
+set.seed(123)
+ss <- sample(1:100, 50)
+wp.ss <- wp[ss,]
+library(factoextra)
+fviz_nbclust(wp.ss, kmeans, method="wss")+
+  geom_vline(xintercept=4, linetype=2)
+km.ss <- kmeans(wp.ss[, -1], centers = 4, nstart=100)
+print(km.ss)
+fviz_cluster(km.ss, data = wp.ss[, -1],
+             pallete = c("lightblue", "lightgreen", "orange", "pink"),
+             ellipse.type= "euclid", 
+             star.plot = TRUE,
+             repel = TRUE,
+             ggtheme = theme_minimal(),
+             geom = "point",
+             stand = FALSE
+)
+km.ss$cluster
+head(km.ss$cluster, 5)
+km.ss$size
+km.ss$centers
